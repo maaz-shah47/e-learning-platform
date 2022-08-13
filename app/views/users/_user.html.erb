@@ -15,4 +15,13 @@
     <%= user.current_sign_in_ip %>
     <%= user.last_sign_in_ip %>
   </div>
+
+  <div class="card-footer">
+    Confirmed Email
+    <% if user.confirmed_at.present? %>
+      <div class="badge badge-success">yes</div>
+    <% else %>
+      <div class="badge badge-danger">No</div>
+    <% end %>
+  </div>
 </div>
