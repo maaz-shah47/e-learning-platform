@@ -7,9 +7,15 @@
     <%= f.input :title %>
     <%= f.label :description %>
     <%= f.rich_text_area :description %>
+    <%= f.error :description, class: 'text-danger' %>
+    <%= f.input :short_description %>
+    <%= f.input :language, collection: ['English', 'Urdu', 'Russian'] %>
+    <%= f.input :level, collection: ['Beginner', 'Intermediate', 'Expert'] %>
+    <%= f.input :price %>
+
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, class: "btn btn-primary mt-2" %>
+    <%= f.button :submit %>
   </div>
 <% end %>
