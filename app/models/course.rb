@@ -10,6 +10,16 @@ class Course < ApplicationRecord
     title
   end
 
+  LANGUAGES = [:"English", :"Urdu", :"Russian", :"Pico  "]
+  LEVELS = [:"Beginner", :"Intermediate", :"Advanced"]
+
+  def self.languages
+    LANGUAGES.map{ |language| [language, language] }
+  end
+
+  def self.levels
+    LEVELS.map{ |level| [level, level] }
+  end
   belongs_to :user
   has_rich_text :description
 end

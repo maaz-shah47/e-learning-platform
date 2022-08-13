@@ -6,7 +6,8 @@ class CoursesController < ApplicationController
     if params[:title]
       @courses = Course.where('title LIKE ?', "%#{params[:title]}%")
     else
-      @courses = Course.all
+      @ransack_courses = Course.ransack(params[:courses_search], search_key: :courses_search)
+      @courses = @ransack_courses.result.includes(:user)
     end
   end
 
