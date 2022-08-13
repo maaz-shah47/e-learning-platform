@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :users
   resources :courses
   get 'privacy_policy', to: 'static_pages#privacy_policy'
+  get 'activity', to: 'home#activity'
 end

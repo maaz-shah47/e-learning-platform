@@ -1,0 +1,10 @@
+<h1>Activities</h1>
+
+<% @activities.each do |activity| %>
+  <p> <%= activity.id %> </p>
+  <p> <%= activity.key %> </p>
+  <p> <%= activity.trackable_type %> </p>
+  <p> <%= activity.trackable_id %> </p>
+  <p> <%= activity.parameters %> </p>
+  <p> <%= activity.owner %> </p>
+<% end %>
