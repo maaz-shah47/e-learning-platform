@@ -1,18 +1,3 @@
-<h3>
-  <div class="text-center">
-    Users
-    <div class="badge badge-info">
-      <%= @users.count %>
-    </div>
-  </div>
-</h3>
-
-<div class="card-columns">
-  <% @users.each do |user| %>
-    <%= render 'users/user', user: user %>
-  <% end %>
-</div>
-
 <div class="form-inline">
   <%= search_form_for @q do |f| %>
     <%= f.search_field :email_cont, placeholder: 'email' %>
@@ -47,6 +32,12 @@
       <th>
         <%= 'last_sign_in_ip'.humanize %>
       </th>
+      <th>
+        <%= 'confirmed'.humanize %>
+      </th>
+      <th>
+        <%= 'roles'.humanize %>
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -75,6 +66,23 @@
         </td>
         <td>
           <%= user.last_sign_in_ip %>
+        </td>
+        <td>
+          <% if user.confirmed_at.present? %>
+            <div class="badge badge-success">yes</div>
+          <% else %>
+            <div class="badge badge-danger">No</div>
+          <% end %>
+        </td>
+        <td>
+          <% user.roles.each do |role| %>
+            <div class="badge badge-info">
+              <%= role.name %>
+            </div>
+          <% end %>
+          <% if policy(user).edit? %>
+            <%= link_to "Edit Roles", edit_user_path(user), class: "btn btn-warning btn-sm" %>
+          <% end %>
         </td>
       </tr>
     <% end %>
