@@ -2,6 +2,11 @@
   <div class="card-header">
     <div class="fa fa-user"></div>
     <%= link_to user.username, user_path(user) %>
+    <% if user.online? %>
+      <span class="badge badge-success">Online</span>
+    <% else %>
+      <span class="badge badge-danger">Offline</span>
+    <% end %>
   </div>
   <div class="card-footer">
     Signed up
