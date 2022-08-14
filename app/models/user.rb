@@ -9,12 +9,16 @@ class User < ApplicationRecord
     email
   end
 
-  def username
-    self.email.split(/@/)[0]
-  end
   has_many :courses
 
   after_create :assign_default_role
+
+  extend FriendlyId
+  friendly_id :email, use: :slugged
+
+  def username
+    self.email.split(/@/)[0]
+  end
 
   def assign_default_role
     if User.count == 1
