@@ -1,14 +1,18 @@
-<div class="card">
+<div class="card mb-3">
   <div class="card-header">
     <%= link_to lesson.title, lesson_path(lesson) %>
   </div>
-  <div class="card-body">
-    <%= lesson.content %>
-    <br/>
-    <%= lesson.course %>
-  </div>
-  <div class="card-footer">
-    <%= link_to "Edit", edit_lesson_path, class: "btn btn-warning" %>
-    <%= link_to "Destroy", lesson_path, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
-  </div>
+  <% if policy(lesson).show? %>
+    <div class="card-body">
+      <%= lesson.content %>
+      <br/>
+      <%= lesson.course %>
+    </div>
+  <% end %>
+  <% if policy(lesson).edit? || policy(lesson).destroy? %>
+    <div class="card-footer">
+      <%= link_to "Edit", edit_lesson_path, class: "btn btn-warning"  %>
+      <%= link_to "Destroy", lesson_path(lesson), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+    </div>
+  <% end %>
 </div>
