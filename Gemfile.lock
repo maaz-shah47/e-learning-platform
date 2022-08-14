@@ -119,6 +119,8 @@ GEM
     nokogiri (1.13.8-x86_64-darwin)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    pagy (5.10.1)
+      activesupport
     public_activity (2.0.2)
       actionpack (>= 5.0.0)
       activerecord (>= 5.0)
@@ -250,6 +252,7 @@ DEPENDENCIES
   friendly_id (~> 5.4.0)
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  pagy
   public_activity
   puma (~> 5.0)
   pundit (~> 2.2)

@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
   include PublicActivity::StoreController
 
+  include Pagy::Backend
+
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   before_action :set_global_variables, if: :user_signed_in?
