@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'activity', to: 'home#activity'
 
   resources :users, only: [:index, :edit, :update, :show]
-  resources :courses
-  resources :lessons
+  resources :courses do
+    resources :lessons
+  end
 end
