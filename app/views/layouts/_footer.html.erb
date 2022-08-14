@@ -1,0 +1,28 @@
+<div class="footer bg-light p-5">
+  <div class="continer">
+    <div class="row">
+      <div class="col-md-4">
+        Copyright
+        ©
+        <%= Time.now.year %>
+        CoursePlatform Sp. z o.o.
+        <div class="row">
+          <div class="fa.fa-envelope"></div>
+          <%= mail_to 'yashm@outlook.com' %>
+        </div>
+      </div>
+      <div class="col-md-4">
+         Privacy policy
+        <div class="row">
+          Terms and conditions
+        </div>
+      </div>
+      <div class="col-md-4">
+        About us
+        <div class="row">
+          <%= link_to 'Teach on CoursePlatform', new_course_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

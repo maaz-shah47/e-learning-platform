@@ -1,5 +1,12 @@
-<h1>Users</h1>
-<br />
+<h3>
+  <div class="text-center">
+    Users
+    <div class="badge badge-info">
+      <%= @users.count %>
+    </div>
+  </div>
+</h3>
+
 <div class="card-columns">
   <% @users.each do |user| %>
     <%= render 'users/user', user: user %>

@@ -30,12 +30,6 @@
             Users
           <% end %>
         </li>
-        <li class="<%= 'active font-weight-bold' if current_page?(activity_path) %> nav-item">
-          <%= link_to activity_path, class: 'nav-link' do %>
-            <div class="fa fa-bell"></div>
-            Activities
-          <% end %>
-        </li>
       </ul>
       <%# if @ransack_courses.present? %>
         <%= search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f| %>
@@ -50,10 +44,10 @@
         <% end %>
       <%# end %>
       <ul class="navbar-nav mr-right">
-        <li class="<%= 'active font-weight-bold' if current_page?(root_path) %> nav-item">
-          <%= link_to root_path, class: 'nav-link' do %>
-            <div class="fa fa-home"></div>
-            Another link
+       <li class="<%= 'active font-weight-bold' if current_page?(activity_path) %> nav-item">
+          <%= link_to activity_path, class: 'nav-link' do %>
+            <div class="fa fa-bell"></div>
+            Activities
           <% end %>
         </li>
         <li class="nav-item dropdown">
