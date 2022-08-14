@@ -5,10 +5,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable, :confirmable
 
-  def to_us
-    email
-  end
-
   has_many :courses
 
   after_create :assign_default_role
@@ -41,5 +37,9 @@ class User < ApplicationRecord
     if self.roles.blank?
       errors.add(:roles, "must have at least one role.")
     end
+  end
+
+  def to_us
+    email
   end
 end

@@ -6,10 +6,6 @@ class Course < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 
-  def to_s
-    title
-  end
-
   LANGUAGES = [:"English", :"Urdu", :"Russian", :"Pico  "]
   LEVELS = [:"Beginner", :"Intermediate", :"Advanced"]
 
@@ -27,4 +23,8 @@ class Course < ApplicationRecord
 
   include PublicActivity::Model
   tracked owner: Proc.new{ |controller, model| controller.current_user }
+
+  def to_s
+    title
+  end
 end

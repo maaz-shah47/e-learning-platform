@@ -1,10 +1,17 @@
 class Lesson < ApplicationRecord
   belongs_to :course
-  
+
   validates :title, presence: true, uniqueness: true
   validates :content, presence: true, length: { minimum: 5 }
   validates :course, presence: true
 
   extend FriendlyId
   friendly_id :title, use: :slugged
+
+  include PublicActivity::Model
+  tracked owner: Proc.new{ |controller, model| controller.current_user }
+
+  def to_s
+    title
+  end
 end
