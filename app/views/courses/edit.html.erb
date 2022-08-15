@@ -1,12 +1,14 @@
-<div class="card">
+<div class="card mb-4">
   <div class="card-header">
     <h1>Editing Course</h1>
   </div>
   <div class="card-body">
     <%= render 'form', course: @course %>
   </div>
+  <div class="card-footer">
+    <%= link_to 'Show', @course %> |
+    <%= link_to 'Back', courses_path %>
+  </div>
 </div>
 
-<%= link_to 'Show', @course %> |
-<%= link_to 'Back', courses_path %>
 

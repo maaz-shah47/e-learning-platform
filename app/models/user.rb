@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable, :confirmable
 
   has_many :courses
+  has_many :enrollments
 
   after_create :assign_default_role
 
@@ -39,7 +40,11 @@ class User < ApplicationRecord
     end
   end
 
-  def to_us
+  def to_s
     email
+  end
+
+  def buy_course(course)
+    self.enrollments.create(course: course, price: course.price)
   end
 end
