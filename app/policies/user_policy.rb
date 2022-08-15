@@ -6,6 +6,10 @@ class UserPolicy < ApplicationPolicy
     end
   end
 
+  def index?
+    @user.has_role?(:admin)
+  end
+
   def edit?
     update?
   end
