@@ -18,26 +18,65 @@
             Courses
           <% end %>
         </li>
-        <li class="<%= 'active font-weight-bold' if current_page?(new_course_path) %> nav-item">
-          <%= link_to new_course_path, class: 'nav-link' do %>
-            <div class="fa fa-plus"></div>
-            New Course
-          <% end %>
-        </li>
-        <li class="<%= 'active font-weight-bold' if current_page?(users_path) %> nav-item">
-          <%= link_to users_path, class: 'nav-link' do %>
-            <div class="fa fa-user"></div>
-            Users
-          <% end %>
-        </li>
-        <li class="<%= 'active font-weight-bold' if current_page?(enrollments_path) %> nav-item">
-          <%= link_to enrollments_path, class: 'nav-link' do %>
-            <div class="fa fa-lock-open"></div>
-            Enrollments
-          <% end %>
-        </li>
+        <% if current_user.has_role?(:student)%>
+          <li class="nav-item dropdown">
+            <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="studentDropdown" role="button">
+              <b>
+                <div class="fa fa-graduation-cap"></div>
+                Learn
+              </b>
+            </a>
+            <div aria-labelledby="studentDropdown" class="dropdown-menu dropdown-menu-right">
+              <%= link_to new_course_path, class: "dropdown-item" do %>
+                <div class="fa fa-plus"></div>
+                <b>
+                  New Course
+                </b>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+        <% if current_user.has_role?(:teacher)%>
+          <li class="nav-item dropdown">
+            <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="teacherDropdown" role="button">
+              <b>
+                <div class="fa fa-person-chalkboard"></div>
+                Teach
+              </b>
+            </a>
+            <div aria-labelledby="teacherDropdown" class="dropdown-menu dropdown-menu-right">
+              <%= link_to new_course_path, class: "dropdown-item" do %>
+                <div class="fa fa-plus"></div>
+                <b>New Course</b>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+        <% if current_user.has_role?(:admin)%>
+          <li class="nav-item dropdown">
+            <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="adminDropdown" role="button">
+              <b>
+                <div class="fa fa-cog"></div>
+                Admin
+              </b>
+            </a>
+            <div aria-labelledby="adminDropdown" class="dropdown-menu dropdown-menu-right">
+              <%= link_to edit_user_registration_path, class: "dropdown-item" do %>
+                <div class="fa fa-user"></div>
+                <b>Users</b>
+              <% end %>
+              <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>
+                <div class="fa fa-lock-open"></div>
+                <b>Enrollments</b>
+              <% end %>
+              <%= link_to activity_path, class: 'dropdown-item' do %>
+                <div class="fa fa-bell"></div>
+                <b>Activity</b>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
       </ul>
-      <%# if @ransack_courses.present? %>
         <%= search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f| %>
           <div class="input-group">
             <%= f.search_field :title_cont, class: 'form-control-sm', style: 'float: left; width: 150px; ', placeholder: 'Find a course', :autocomplete => :off %>
@@ -48,32 +87,25 @@
             </span>
           </div>
         <% end %>
-      <%# end %>
-      <ul class="navbar-nav mr-right">
-       <li class="<%= 'active font-weight-bold' if current_page?(activity_path) %> nav-item">
-          <%= link_to activity_path, class: 'nav-link' do %>
-            <div class="fa fa-bell"></div>
-            Activities
-          <% end %>
-        </li>
-        <li class="nav-item dropdown">
-          <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdown" role="button">
-            <b>
-              <%= current_user.email %>
-            </b>
-          </a>
-          <div aria-labelledby="navbarDropdown" class="dropdown-menu dropdown-menu-right">
-            <%= link_to edit_user_registration_path, class: "dropdown-item" do %>
-              <div class="fa fa-cog"></div>
-              <b>Account settings</b>
-            <% end %>
-            <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>
-              <div class="fa fa-sign-out-alt"></div>
-              <b>Sign out</b>
-            <% end %>
-          </div>
-        </li>
-      </ul>
+        <ul class="navbar-nav mr-right">
+          <li class="nav-item dropdown">
+            <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdown" role="button">
+              <b>
+                <%= current_user.email %>
+              </b>
+            </a>
+            <div aria-labelledby="navbarDropdown" class="dropdown-menu dropdown-menu-right">
+              <%= link_to edit_user_registration_path, class: "dropdown-item" do %>
+                <div class="fa fa-cog"></div>
+                <b>Account settings</b>
+              <% end %>
+              <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>
+                <div class="fa fa-sign-out-alt"></div>
+                <b>Sign out</b>
+              <% end %>
+            </div>
+          </li>
+        </ul>
     <% else %>
       <ul class="navbar-nav">
         <li class="nav-item">
