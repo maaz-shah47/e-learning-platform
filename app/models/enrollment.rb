@@ -6,7 +6,8 @@ class Enrollment < ApplicationRecord
   friendly_id :to_s, use: :slugged
 
   validates :user, :course, presence: true
-
+  validates :rating, presence: true
+  validates :review, presence: true
   validates :user_id, uniqueness: { scope: :course_id }
   validates :course_id, uniqueness: { scope: :user_id }
 
