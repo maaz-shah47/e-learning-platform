@@ -1,14 +1,13 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :show]
+  before_action :set_user, only: %i[edit update show]
   def index
     # @users = User.all.order(created_at: :desc)
     @q = User.ransack(params[:q])
-    @users = @q.result(distinct: true)
+    @pagy, @users = pagy(@q.result(distinct: true))
     authorize @users
   end
 
-  def show
-  end
+  def show; end
 
   def edit
     authorize @user
@@ -30,6 +29,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit({role_ids: []})
+    params.require(:user).permit({ role_ids: [] })
   end
 end
