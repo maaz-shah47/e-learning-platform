@@ -47,6 +47,9 @@
         <th>
           <%= 'roles'.humanize %>
         </th>
+        <th>
+          <%= 'status'.humanize %>
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -91,6 +94,13 @@
             <% end %>
             <% if policy(user).edit? %>
               <%= link_to "Edit Roles", edit_user_path(user), class: "btn btn-warning btn-sm" %>
+            <% end %>
+          </td>
+          <td>
+            <% if user.online? %>
+              <span class="badge badge-success">Online</span>
+            <% else %>
+              <span class="badge badge-danger">Offline</span>
             <% end %>
           </td>
         </tr>

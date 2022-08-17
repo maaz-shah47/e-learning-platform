@@ -19,19 +19,18 @@ class EnrollmentPolicy < ApplicationPolicy
   end
 
   def update?
-    @record.course.user == @user
+    @record.user == @user
   end
 
-  # def new?
-  #   # create?
-  # end
+  def new?
+    # create?
+  end
 
-  # def create?
-  #   @record.course.user == @user
-  # end
+  def create?
+    # @record.course.user == @user
+  end
 
   def destroy?
     @user.has_role?(:admin)
-
   end
 end

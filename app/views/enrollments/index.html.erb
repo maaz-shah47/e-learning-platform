@@ -13,11 +13,20 @@
   <table class="table table-bordered table-striped table-sm">
     <thead>
       <tr>
-        <th>Course</th>
-        <th>User</th>
-        <th>Rating</th>
-        <th>Review</th>
-        <th>Price</th>
+        <th>ID</th>
+        <th><div class="fa fa-user"></div> User</th>
+        <th><div class="fa fa-graduation-cap"></div> Course</th>
+        <th><div class="fa fa-clock"></div>    <div class="fa fa-lock-open"></div></th>
+        <th><div class="fa fa-dollar-sign"></div> Price</th>
+        <th>
+          <div class="fa fa-clock text-warning"></div> Reviewed on
+        </th>
+        <th>
+          <div class="fa fa-star text-warning"></div> Rating
+        </th>
+        <th>
+          <div class="fa fa-comment text-warning"></div> Review
+        </th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -26,13 +35,20 @@
       <% @enrollments.each do |enrollment| %>
         <tr>
           <td><%= enrollment.course_id %></td>
-          <td><%= enrollment.user_id %></td>
+          <td><%= link_to enrollment.user, user_path(enrollment.user) %></td>
+          <td><%= link_to enrollment.course, course_path(enrollment.course) %></td>
+          <td><%= enrollment.created_at.strftime("%d/%b/%y") %></td>
+          <td><%= number_to_currency(enrollment.price) %></td>
+          <td>
+            <% if enrollment.rating.present? %>
+              <%= enrollment.updated_at.strftime("%d/%b/%y - %H:%M:%S") %>
+            <% end %>
+          </td>
           <td><%= enrollment.rating %></td>
           <td><%= enrollment.review %></td>
-          <td><%= number_to_currency(enrollment.price) %></td>
-          <td><%= link_to 'Show', enrollment %></td>
-          <td><%= link_to 'Edit', edit_enrollment_path(enrollment) %></td>
-          <td><%= link_to 'Destroy', enrollment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'See Review', enrollment %></td>
+          <td><%= link_to 'Add Review', edit_enrollment_path(enrollment) %></td>
+          <td><%= link_to 'Delete Enrollment', enrollment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>
