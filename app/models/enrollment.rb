@@ -2,6 +2,9 @@ class Enrollment < ApplicationRecord
   belongs_to :course
   belongs_to :user
 
+  extend FriendlyId
+  friendly_id :to_s, use: :slugged
+
   validates :user, :course, presence: true
 
   validates :user_id, uniqueness: { scope: :course_id }
