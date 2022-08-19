@@ -31,12 +31,18 @@
                 <div class="fa fa-graduation-cap"></div>
                 <b>
                   Purchased Courses
+                  <div class="badge badge-danger">
+                    <%= current_user.enrollments.count %>
+                  </div>
                 </b>
               <% end %>
               <%= link_to pending_review_courses_path, class: "dropdown-item" do %>
                 <div class="fa fa-star"></div>
                 <b>
                  Pending Reviews
+                 <div class="badge badge-danger">
+                    <%= current_user.enrollments.pending_review.count %>
+                  </div>
                 </b>
               <% end %>
             </div>
@@ -58,10 +64,16 @@
               <%= link_to created_courses_path, class: "dropdown-item" do %>
                 <div class="fa fa-graduation-cap"></div>
                 <b>My Courses</b>
+                <div class="badge badge-danger">
+                  <%= current_user.courses.count %>
+                </div>
               <% end %>
               <%= link_to my_students_enrollments_path, class: "dropdown-item" do %>
                 <div class="fa fa-graduation-cap"></div>
                 <b>My Students</b>
+                <div class="badge badge-danger">
+                  <%= Enrollment.joins(:course).where(courses: {user: current_user}).count %>
+                </div>
               <% end %>
             </div>
           </li>
@@ -78,10 +90,16 @@
               <%= link_to edit_user_registration_path, class: "dropdown-item" do %>
                 <div class="fa fa-user"></div>
                 <b>Users</b>
+                <div class="badge badge-danger">
+                  <%= User.count %>
+                </div>
               <% end %>
               <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>
                 <div class="fa fa-lock-open"></div>
                 <b>Enrollments</b>
+                <div class="badge badge-danger">
+                  <%= Enrollment.count %>
+                </div>
               <% end %>
               <%= link_to activity_path, class: 'dropdown-item' do %>
                 <div class="fa fa-bell"></div>
