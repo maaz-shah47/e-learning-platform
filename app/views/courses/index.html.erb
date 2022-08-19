@@ -9,7 +9,7 @@
 </h3>
 <div class="row mt-3">
   <div class="col-md-2">
-    <%= search_form_for @ransack_courses do |f| %>
+    <%= search_form_for @ransack_courses, url: @ransack_path do |f| %>
       <%= f.label :title %>
       <%= f.search_field :title_cont, placeholder: 'Title', class: "form-control-sm" %>
       <%= f.label :description %>
@@ -24,7 +24,7 @@
       <%= f.search_field :user_email_cont, placeholder: 'User Email', class: "form-control-sm" %>
       <%= f.submit %>
     <% end %>
-    <%= link_to courses_path, class: "btn btn-sm btn-secondary" do %>
+    <%= link_to @ransack_path, class: "btn btn-sm btn-secondary" do %>
       <i class="fa-solid fa-rotate"></i>
     <% end %>
   </div>

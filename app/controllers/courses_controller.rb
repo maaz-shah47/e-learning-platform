@@ -1,7 +1,9 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: %i[ show edit update destroy ]
+  before_action :set_course, only: %i[show edit update destroy]
   # GET /courses or /courses.json
   def index
+    @ransack_path = courses_path
+
     if params[:title]
       @courses = Course.where('title LIKE ?', "%#{params[:title]}%")
     else
@@ -29,14 +31,13 @@ class CoursesController < ApplicationController
 
   # POST /courses or /courses.json
   def create
-
     @course = Course.new(course_params)
     @course.user = current_user
 
     authorize @course
     respond_to do |format|
       if @course.save
-        format.html { redirect_to course_url(@course), notice: "Course was successfully created." }
+        format.html { redirect_to course_url(@course), notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -51,7 +52,7 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       if @course.update(course_params)
-        format.html { redirect_to course_url(@course), notice: "Course was successfully updated." }
+        format.html { redirect_to course_url(@course), notice: 'Course was successfully updated.' }
         format.json { render :show, status: :ok, location: @course }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,19 +68,40 @@ class CoursesController < ApplicationController
     @course.destroy
 
     respond_to do |format|
-      format.html { redirect_to courses_url, notice: "Course was successfully destroyed." }
+      format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_course
-      @course = Course.friendly.find(params[:id])
-    end
+  def purchased
+    @ransack_path = purchased_courses_path
 
-    # Only allow a list of trusted parameters through.
-    def course_params
-      params.require(:course).permit(:title, :description, :short_description, :language, :level, :price)
-    end
+    @pagy, @courses = pagy(Course.joins(:enrollments).where(enrollments: { user_id: current_user.id }))
+    render :index
+  end
+
+  def pending_review
+    @ransack_path = pending_review_courses_path
+    @pagy, @courses = pagy(Course.joins(:enrollments).merge(Enrollment.pending_review.where(enrollments: { user_id: current_user.id })))
+    render :index
+  end
+
+  def created
+    @ransack_path = created_courses_path
+
+    @pagy, @courses = pagy(Course.where(user: current_user ))
+    render :index
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_course
+    @course = Course.friendly.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def course_params
+    params.require(:course).permit(:title, :description, :short_description, :language, :level, :price)
+  end
 end
