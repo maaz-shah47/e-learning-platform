@@ -60,11 +60,22 @@
 <br />
 <hr/>
 <h2>
+  Continue Learning
+</h2>
+<br />
+<div class="card-columns">
+  <% @purchased_courses.each do |course| %>
+    <%= render 'courses/course', course: course %>
+  <% end %>
+</div>
+<br />
+<hr/>
+<h2>
   Popular courses
 </h2>
 <br />
 <div class="card-columns">
-  <% @courses.each do |course| %>
+  <% @popular_courses.each do |course| %>
     <%= render 'courses/course', course: course %>
   <% end %>
 </div>
@@ -75,7 +86,7 @@
 </h2>
 <br />
 <div class="card-columns">
-  <% @courses.each do |course| %>
+  <% @top_rated_courses.each do |course| %>
     <%= render 'courses/course', course: course %>
   <% end %>
 </div>
@@ -88,6 +99,18 @@
 <div class="card-columns">
   <% @latest_couses.each do |course| %>
     <%= render 'courses/course', course: course %>
+  <% end %>
+</div>
+<hr/>
+<hr/>
+<br/>
+<h2>
+  Students Reviews
+</h2>
+<br />
+<div class="card-columns">
+  <% @latest_good_reviews.each do |enrollment| %>
+    <%= render 'enrollments/enrollment', enrollment: enrollment %>
   <% end %>
 </div>
 <hr/>

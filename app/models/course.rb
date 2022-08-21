@@ -9,6 +9,11 @@ class Course < ApplicationRecord
   LANGUAGES = [:English, :Urdu, :Russian, :"Pico  "]
   LEVELS = %i[Beginner Intermediate Advanced]
 
+  scope :latest_courses, -> { limit(3).order(created_at: :desc) }
+  scope :top_rated, -> { limit(3).order(average_rating: :desc, created_at: :desc) }
+  scope :popular_courses, -> { limit(3).order(enrollments_count: :desc, created_at: :desc) }
+
+
   def self.languages
     LANGUAGES.map { |language| [language, language] }
   end

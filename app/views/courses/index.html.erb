@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <h3>
   <div class="text-center">
-    Courses
+    <%= action_name.humanize %> Courses
     <div class="badge badge-info">
       <%= @courses.count %>
     </div>
@@ -22,6 +22,16 @@
       <%= f.search_field :price_eq, placeholder: 'Price', class: "form-control-sm" %>
       <%= f.label :teacher %>
       <%= f.search_field :user_email_cont, placeholder: 'User Email', class: "form-control-sm" %>
+      <div class="row"></div>
+      <%= sort_link(@ransack_courses, :price) %>
+      <div class="row"></div>
+      <%= sort_link(@ransack_courses, :average_rating, "Top Rated") %>
+      <div class="row"></div>
+      <%= sort_link(@ransack_courses, :enrollments_count, "Most Popular") %>
+      <div class="row"></div>
+      <%= sort_link(@ransack_courses, :created_at, "Recent") %>
+      <div class="row"></div>
+
       <%= f.submit %>
     <% end %>
     <%= link_to @ransack_path, class: "btn btn-sm btn-secondary" do %>
