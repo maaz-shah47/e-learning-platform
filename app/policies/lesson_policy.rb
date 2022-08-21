@@ -29,4 +29,5 @@ class LessonPolicy < ApplicationPolicy
   def destroy?
     @record.course.user == @user
   end
+
 end

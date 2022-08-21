@@ -6,6 +6,7 @@ class Lesson < ApplicationRecord
   validates :course, presence: true
 
   has_rich_text :content
+  has_many :user_lessons
 
   extend FriendlyId
   friendly_id :title, use: :slugged
@@ -15,5 +16,9 @@ class Lesson < ApplicationRecord
 
   def to_s
     title
+  end
+
+  def viewed(user)
+    self.user_lessons.where(user: user).present?
   end
 end

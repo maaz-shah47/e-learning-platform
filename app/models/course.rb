@@ -18,6 +18,12 @@ class Course < ApplicationRecord
     LANGUAGES.map { |language| [language, language] }
   end
 
+  def progress(user)
+    unless self.lessons_count == 0
+      user_lessons.where(user: user).count/self.lessons_count.to_f*100
+    end
+  end
+
   def self.levels
     LEVELS.map { |level| [level, level] }
   end
@@ -27,6 +33,7 @@ class Course < ApplicationRecord
 
   has_many :lessons, dependent: :destroy
   has_many :enrollments
+  has_many :user_lessons, through: :lessons
 
   has_rich_text :description
 
