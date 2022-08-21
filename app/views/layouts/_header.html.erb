@@ -32,7 +32,7 @@
                 <b>
                   Purchased Courses
                   <div class="badge badge-danger">
-                    <%= current_user.enrollments.count %>
+                    <%= current_user.enrollments_count %>
                   </div>
                 </b>
               <% end %>
@@ -65,7 +65,7 @@
                 <div class="fa fa-graduation-cap"></div>
                 <b>My Courses</b>
                 <div class="badge badge-danger">
-                  <%= current_user.courses.count %>
+                  <%= current_user.courses_count %>
                 </div>
               <% end %>
               <%= link_to my_students_enrollments_path, class: "dropdown-item" do %>
@@ -87,14 +87,14 @@
               </b>
             </a>
             <div aria-labelledby="adminDropdown" class="dropdown-menu dropdown-menu-right">
-              <%= link_to edit_user_registration_path, class: "dropdown-item" do %>
+              <%= link_to users_path, class: "dropdown-item" do %>
                 <div class="fa fa-user"></div>
                 <b>Users</b>
                 <div class="badge badge-danger">
                   <%= User.count %>
                 </div>
               <% end %>
-              <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>
+              <%= link_to enrollments_path, class: "dropdown-item" do %>
                 <div class="fa fa-lock-open"></div>
                 <b>Enrollments</b>
                 <div class="badge badge-danger">

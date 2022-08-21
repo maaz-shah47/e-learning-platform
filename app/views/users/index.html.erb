@@ -42,6 +42,12 @@
           <%= 'last_sign_in_ip'.humanize %>
         </th>
         <th>
+          <%= 'courses_count'.humanize %>
+        </th>
+        <th>
+          <%= 'enrollments_count'.humanize %>
+        </th>
+        <th>
           <%= 'confirmed'.humanize %>
         </th>
         <th>
@@ -78,6 +84,12 @@
           </td>
           <td>
             <%= user.last_sign_in_ip %>
+          </td>
+          <td>
+            <%= user.courses_count %>
+          </td>
+          <td>
+            <%= user.enrollments_count %>
           </td>
           <td>
             <% if user.confirmed_at.present? %>

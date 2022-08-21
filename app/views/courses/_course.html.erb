@@ -7,7 +7,13 @@
     <%= course.short_description %>
   </div>
   <div class="card-footer">
-    <div class="fa fa-tasks"> <%= course.lessons.count %></div>
+    <div class="fa fa-star text-warning"></div>
+    <%= course.average_rating %>
+     (<div class="fa fa-user-graduate"></div>
+      <%= course.enrollments_count %>)
+  </div>
+  <div class="card-footer">
+    <div class="fa fa-tasks"> <%= course.lessons_count %></div>
     <br/>
     <%= review_button(course) %>
   </div>

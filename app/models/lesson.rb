@@ -1,6 +1,6 @@
 class Lesson < ApplicationRecord
-  belongs_to :course
-
+  belongs_to :course, counter_cache: true
+  # Course.find_each {|course| Course.reset_counters(course.id, :enrollments)}
   validates :title, presence: true
   validates :content, presence: true, length: { minimum: 5 }
   validates :course, presence: true

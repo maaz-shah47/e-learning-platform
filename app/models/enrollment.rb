@@ -1,6 +1,7 @@
 class Enrollment < ApplicationRecord
-  belongs_to :course
-  belongs_to :user
+  belongs_to :course, counter_cache: true
+  # User.find_each {|user| User.reset_counters(user.id, :enrollments)}
+  belongs_to :user, counter_cache: true
 
   extend FriendlyId
   friendly_id :to_s, use: :slugged
@@ -16,6 +17,16 @@ class Enrollment < ApplicationRecord
   scope :pending_review, -> { where(rating: [0, nil, ''], review: [0, nil, '']) }
   def to_s
     user.to_s + ' ' + course.to_s
+  end
+
+  after_save do
+    unless rating.nil? || rating.zero?
+      course.update_rating
+    end
+  end
+
+  after_destroy do
+    course.update_rating
   end
 
   protected

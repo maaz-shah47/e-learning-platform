@@ -17,7 +17,9 @@ class Course < ApplicationRecord
     LEVELS.map { |level| [level, level] }
   end
 
-  belongs_to :user
+  belongs_to :user, counter_cache: true
+  # User.find_each {|user| User.reset_counters(user.id, :courses)}
+
   has_many :lessons, dependent: :destroy
   has_many :enrollments
 
@@ -25,6 +27,14 @@ class Course < ApplicationRecord
 
   include PublicActivity::Model
   tracked owner: proc { |controller, _model| controller.current_user }
+
+  def update_rating
+    if enrollments.any? && enrollments.where.not(rating: nil).any?
+      update_column :average_rating, enrollments.average(:rating).round(2).to_f
+    else
+      update_column :average_rating, 0
+    end
+  end
 
   def to_s
     title
